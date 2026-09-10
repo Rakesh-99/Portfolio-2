@@ -1,176 +1,91 @@
-import Timeline from '@mui/lab/Timeline';
-import TimelineItem from '@mui/lab/TimelineItem';
-import TimelineSeparator from '@mui/lab/TimelineSeparator';
-import TimelineConnector from '@mui/lab/TimelineConnector';
-import TimelineContent from '@mui/lab/TimelineContent';
-import TimelineDot from '@mui/lab/TimelineDot';
-import { PiLaptopDuotone } from "react-icons/pi";
-import Typography from '@mui/material/Typography';
-import { internshipTechUsed, vgInfotecExp } from "../data/data";
-import { IoLocationOutline } from "react-icons/io5";
-import { useTheme, useMediaQuery } from "@mui/material";
-import { useSelector } from 'react-redux';
-import {motion } from 'motion/react'; 
+import { Briefcase, MapPin } from 'lucide-react';
+import { internshipTechUsed, vgInfotecExp } from '../data/data';
+import Reveal from './ui/Reveal';
 
-
-
+const experiences = [
+  {
+    title: 'ThinkerSky Technologies',
+    fullTime: true,
+    period: 'Feb 2025 — July 2026',
+    role: 'Full-Stack Developer',
+    location: 'Rajkot, Gujarat (On-site)',
+    techStack: vgInfotecExp,
+    achievements: [
+      'Integrated external trading APIs (Charles Schwab, E*TRADE) to fetch real-time stock and options data.',
+      'Implemented dynamic UI components using TradingView lightweight-charts to visualize options metrics (strike price, premium, volume, open interest).',
+      'Optimized ERP workflows by enhancing document handling (invoices, packing lists, contracts), reducing manual processing effort.',
+      'Improved system reliability by refining API responses and synchronizing frontend-backend communication.',
+    ],
+  },
+  {
+    title: 'Website Vikreta',
+    fullTime: false,
+    period: 'Sep 2024 — Dec 2024',
+    role: 'MERN Stack Developer',
+    location: 'Maharashtra, India',
+    techStack: internshipTechUsed,
+    achievements: [
+      'Designed a threaded comment system supporting nested replies, improving user engagement across posts.',
+      'Developed a custom URL redirection system in Next.js, enabling Bitly link transformation into branded domain links with dynamic routing.',
+    ],
+  },
+];
 
 const ExperienceTimeline = () => {
-  const muiTheme = useTheme();
-  const theme = useSelector((state) => state.themeToggle.theme);
-  const isMobile = useMediaQuery(muiTheme.breakpoints.down("md"));
-  const isTablet = useMediaQuery(muiTheme.breakpoints.down("lg"));
-
-  const experiences = [
-    {
-      title: "ThinkerSky Technologies ",
-      fullTime: true,
-      period: "Feb 2025 - July  2026",
-      role: "Full-Stack Developer",
-      location: "Rajkot, Gujarat (On-site)",
-      techStack: vgInfotecExp,
-      achievements: [
-        "Integrated external trading APIs (Charles Schwab, E*TRADE) to fetch real-time stock and options data.",
-        "Implemented dynamic UI components using TradingView light weight charts API to visualize options metrics (strike price, premium, volume, open interest).",
-        "Optimized ERP workflows by enhancing document handling (invoices, packing lists, contracts), reducing manual processing effort.",
-        "Improved system reliability by refining API responses and synchronizing frontend-backend communication."
-      ]
-    },
-    {
-      title: "Website Vikreta",
-      fullTime: false,
-      period: "Sep 2024 - Dec 2024",
-      role: "Mern-Stack Developer",
-      location: "Maharashtra, India (Remote)",
-      techStack: internshipTechUsed,
-      achievements: [
-        "Designed a threaded comment system supporting nested replies, improving user engagement across posts.",
-        "Developed a custom URL redirection system in Next.js, enabling Bitly link transformation into branded domain links with dynamic routing."
-      ]
-    }
-  ];
-
   return (
-    <Timeline 
-      position="right"
-      sx={{
-        padding: isMobile ? '0' : 'initial',
-        margin: isMobile ? '0' : 'initial',
-        width: isMobile ? '100%' : 'initial',
-      }}
-    >
-      {experiences.map((exp, index) => (
-        <TimelineItem 
-          key={index} 
-          position="right"
-          sx={{
-            minHeight: 'initial',
-            paddingTop: isMobile ? '8px' : 'initial',
-            paddingBottom: isMobile ? '8px' : 'initial',
-          }}
-        >
-          <TimelineSeparator >
-            <TimelineConnector />
-            <TimelineDot  sx={{ backgroundColor: "gray" }}>
-              <PiLaptopDuotone  sx={{ fontSize: isMobile ? 18 : 24 }} />
-            </TimelineDot>
-            <TimelineConnector />
-          </TimelineSeparator>
+    <div className="relative">
+      <div className="absolute left-[15px] md:left-[19px] top-2 bottom-2 w-px bg-gradient-to-b from-accent via-ink/10 dark:via-paper/10 to-transparent" />
 
-          <TimelineContent sx={{ 
-            py: { xs: 1.5, sm: 3 }, 
-            px: { xs: 0.5, sm: 2 },
-            flex: '1 1 100%',
-            width: '100%',
-          }}>
-            <div className="flex flex-col">
-              {/* Title and Date for Mobile */}
-              <div className="flex justify-between items-start gap-1 md:gap-2 mb-1 md:mb-2">
-                <Typography
-                  variant={isMobile ? "body1" : "h6"}
-                  component="span"
-                  className="font-extrabold"
-                  sx={{ fontSize: { xs: "0.95rem", sm: "1.1rem", md: "1.25rem" } }}
-                >
-                  <span>{exp.title.split(' ')[0]} </span>
-                  <span className='border-b-2 border-yellow-500 inline-block'>
-                    {exp.title.split(' ').slice(1).join(' ')}
-                  </span>
-                </Typography>
-                <span className='text-gray-400 text-[11px] sm:text-xs whitespace-nowrap text-right md:text-sm'>
+      <div className="flex flex-col gap-10">
+        {experiences.map((exp, index) => (
+          <Reveal key={index} delay={index * 0.1} className="relative pl-12 md:pl-16">
+            <span className="absolute left-0 top-1 h-8 w-8 md:h-10 md:w-10 rounded-full bg-paper dark:bg-ink border-2 border-accent grid place-items-center text-accent">
+              <Briefcase size={16} />
+            </span>
+
+            <div className="rounded-2xl border border-ink/10 dark:border-paper/10 bg-paper/60 dark:bg-ink-soft/60 p-6 hover:border-accent/40 transition-colors">
+              <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
+                <h3 className="text-lg md:text-xl font-bold font-display">{exp.title}</h3>
+                <span className="text-xs md:text-sm font-mono text-ink/50 dark:text-paper/50 whitespace-nowrap">
                   {exp.period}
                 </span>
               </div>
 
-              {/* Location */}
-              <div className="flex items-center gap-1.5 md:gap-2 mt-0.5 md:mt-1">
-                <span className='inline-block w-4 h-4  text-red-500 flex-shrink-0'>
-                  <IoLocationOutline />
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-4 text-sm text-ink/60 dark:text-paper/60">
+                <span className="flex items-center gap-1.5">
+                  <MapPin size={13} /> {exp.location}
                 </span>
-                <span className='text-[11px] sm:text-xs md:text-sm'>{exp.location}</span>
+                <span className="italic">{exp.role}</span>
+                <span className="text-xs font-mono px-2 py-0.5 rounded-full bg-accent/10 text-accent">
+                  {exp.fullTime ? 'Full-time' : 'Internship'}
+                </span>
               </div>
 
-              {/* Role */}
-              <Typography
-                variant="body2"
-                className="mt-1 md:mt-4 text-left italic text-[11px] sm:text-xs md:text-sm"
-              >
-                {exp.role}
-              </Typography>
-              <Typography
-                variant="body2"
-                className="text-left text-[10px] sm:text-[11px] md:text-[12px] text-gray-400 mt-1"
-              >
-                {exp.fullTime ? "Full Time" : "Internship"}
-              </Typography>
-            </div>
-
-            {/* Achievements */}
-            <Typography>
-              <ul className='flex flex-col gap-1.5 text-left sm:gap-2 md:gap-3 ml-3 sm:ml-4 md:ml-5 mt-2 sm:mt-3 md:mt-4'>
-                {exp.achievements.map((achievement, idx) => (
-                  <li key={idx} className='list-disc text-[11px] sm:text-xs md:text-sm leading-relaxed'>
-                    {achievement}
+              <ul className="flex flex-col gap-2 mb-5">
+                {exp.achievements.map((a, i) => (
+                  <li key={i} className="text-sm leading-relaxed text-ink/75 dark:text-paper/75 flex gap-2">
+                    <span className="text-accent mt-1.5 h-1 w-1 rounded-full bg-accent shrink-0" />
+                    {a}
                   </li>
                 ))}
               </ul>
-            </Typography>
 
-            {/* Tech Stack Section */}
-            <div className="mt-3 sm:mt-4  text-left md:mt-5">
-              <span className='font-bold border py-1 px-2 rounded-xl border-yellow-500 text-[11px] sm:text-xs md:text-sm'>
-                Tech Stack
-              </span>
-
-              <div className="mt-1.5 sm:mt-2 md:mt-3">
-                <div
-                  className={`grid gap-1.5 sm:gap-2 px-0 sm:px-1 md:px-2 ${
-                    isMobile ? "grid-cols-5" : isTablet ? "grid-cols-6" : "grid-cols-8"
-                  }`}
-                >
-                          {exp.techStack.map((val, idx) => {
-                    const isThemedLogo = /next|sanity/i.test(val.label);
-                    const iconColor = isThemedLogo ? (theme === 'dark' ? '#ffffff' : '#000000') : (val.color || 'inherit');
-                    return (
-                      <div
-                        className="flex flex-col items-center justify-center"
-                        key={idx}
-                      >
-                        <p style={{ color: iconColor }} className="flex items-center justify-center">
-                          <val.icon size={isMobile ? 16 : isTablet ? 22 : 25} />
-                        </p>
-                        <p className='text-center mt-0.5 text-[9px] sm:text-[10px] md:text-xs line-clamp-2'>
-                          {val.label}
-                        </p>
-                      </div>
-                    )})}
-                </div>
+              <div className="flex flex-wrap gap-2">
+                {exp.techStack.map((tech, i) => (
+                  <span
+                    key={i}
+                    className="flex items-center gap-1.5 text-xs font-mono px-2.5 py-1 rounded-full bg-ink/5 dark:bg-paper/10"
+                  >
+                    <tech.icon size={13} style={{ color: tech.color || 'inherit' }} />
+                    {tech.label}
+                  </span>
+                ))}
               </div>
             </div>
-          </TimelineContent>
-        </TimelineItem>
-      ))}
-    </Timeline>
+          </Reveal>
+        ))}
+      </div>
+    </div>
   );
 };
 

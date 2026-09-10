@@ -1,83 +1,74 @@
-// import AboutImg from '../assets/AboutImg.png';
 import GithubCalender from '../components/GithubCalender';
 import SkillsAndTools from '../components/SkillsAndTools';
-import { skillInfo, toolsIUse } from '../data/data';
+import { skillCategories, toolsIUse } from '../data/data';
 import TimelineEducation from '../components/TimelineEducation';
 import ExperienceTimeline from '../components/ExperienceTimeline';
-
-
-
+import SectionHeading from '../components/ui/SectionHeading';
+import Reveal from '../components/ui/Reveal';
+import AboutVisual from '../components/ui/AboutVisual';
+import { MapPin, Sparkles } from 'lucide-react';
 
 const About = () => {
+  return (
+    <div className="container flex flex-col gap-28">
+      {/* Intro */}
+      <div className="grid md:grid-cols-[auto_1fr] gap-20 items-center">
+        <Reveal direction="right" className="mx-auto md:mx-0">
+          <AboutVisual />
+        </Reveal>
+        <Reveal direction="left" className="flex flex-col gap-3 text-center md:text-left">
+          <span className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-accent mx-auto md:mx-0">
+            <Sparkles size={12} /> About me
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold">Rakesh Kumar Parida</h2>
+          <p className="text-ink/60 dark:text-paper/60 leading-relaxed max-w-2xl mx-auto md:mx-0">
+            Full Stack Developer with 1.6+ years of experience building web apps.
+            I have worked on event-driven services, transaction processing systems, real-time analytics pipelines, and scalable REST APIs, with a strong focus on data consistency, performance tuning, and reliability.
 
-    return (
+            Comfortable working across the full SDLC from design and development to testing, deployment, and production monitoring. Passionate about backend engineering, system internals, and writing maintainable, production-ready code.Working with various databases, including PostgreSQL, MySQL, and MongoDB.
+          </p>
+          <span className="inline-flex items-center gap-1.5 text-sm text-ink/50 dark:text-paper/50 mx-auto md:mx-0">
+            <MapPin size={14} color='red'/> Based in Bhubaneswar,India
+          </span>
+        </Reveal>
+      </div>
 
-        <div className="select-none px-5 flex flex-col w-[95%] md:w-[75%] m-auto">
+      {/* Experience */}
+      <div>
+        <SectionHeading eyebrow="Career" title="Experience" align="left" />
+        <ExperienceTimeline />
+      </div>
 
-            {/* <div className="heroImg w-full  flex justify-center py-5">
-                <img src={AboutImg} alt="aboutImg" className=' md:w-1/2 lg:h-1/2  w-[500px]:w-56' />
-            </div>
+      {/* Education */}
+      <div>
+        <SectionHeading eyebrow="Background" title="Education" align="left" />
+        <TimelineEducation />
+      </div>
 
-            <div className="into flex justify-center py-3">
-                <h1 className=' text-2xl font-bold max-[500px]:text-sm'>Hi, <span className='bg-clip-text bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent py-1 px-4 rounded-md max-[500px]:text-sm'>I’m Rakesh Kumar Parida.</span>Nice to meet you.</h1>
-            </div>
+      {/* Skills */}
+      <div>
+        <SectionHeading
+          eyebrow="Technologies"
+          title="Skills"
+          subtitle="Technologies I use to design, build, and ship full-stack products."
+          align="left"
+        />
+        <SkillsAndTools categories={skillCategories} />
+      </div>
 
-            <div className="description flex leading-10 w-full justify-center flex-col items-center mt-5">
-                <p className='font-normal  text-justify '>
-                    I am a Mern Stack developer with a passion for creating <span className='font-medium'>beautiful</span>  and <span className='font-medium'>user-friendly</span>  websites. I have a strong understanding of <span className='font-medium'>front-end</span> development and familiar with Backend technologies like <span className='font-medium'>Node,Express</span>  and <span className='font-medium'>MongoDB</span>. Additionally, I have expertise in implementing <span className='font-medium'>user Authentication,authorization </span>and  creating <span className='font-semibold'>REST APIs</span>  with real time <span className='font-medium'>Database integration</span>  using <span className='font-medium'>MongoDB Atlas</span> . I am experienced in deploying MERN Stack applications on platforms such as <span className='font-medium'>Aws, Vercel, Render</span> .
+      {/* Tools */}
+      <div>
+        <SectionHeading eyebrow="Workflow" title="Tools I use" align="left" />
+        <SkillsAndTools skillsAndToolsData={toolsIUse} />
+      </div>
 
-                    <br />
-
-                    I am excited to put my skills to use in a professional setting. I am a quick learner and a team player, and I am confident that I can be a valuable asset to any web development team.
-                    Thank You.
-                </p>
-            </div> */}
-
-
-
-            {/* Experience Details  */}
-            <h1 className='text-center md:text-6xl lg:text-6xl my-10  text-4xl font-bold'>Experience</h1>
-
-            <div className=" ">
-                <ExperienceTimeline />
-            </div>
-
-
-
-
-            {/* Education details  */}
-
-            <h1 className='text-center md:text-6xl lg:text-6xl my-10  text-4xl font-bold'>Education</h1>
-
-            <div className=" ">
-                <TimelineEducation />
-            </div>
-
-            {/* Skills  */}
-            <h1 className='text-center md:text-6xl lg:text-6xl  text-4xl my-10 font-bold '>Skills</h1>
-
-            <div className="skill-card">
-                <SkillsAndTools skillsAndToolsData={skillInfo} />
-            </div>
-
-
-            {/* Tools  */}
-            <h1 className='text-center md:text-6xl lg:text-6xl  text-4xl font-bold'>Tools I use</h1>
-
-            <div className="skill-card">
-                <SkillsAndTools skillsAndToolsData={toolsIUse} />
-            </div>
-
-
-
-
-            {/* Github calender  */}
-
-            <GithubCalender/>
-
-        </div>
-
-    )
-}
+      {/* GitHub activity */}
+      <div>
+        <SectionHeading eyebrow="Activity" title="Days I code" align="left" />
+        <GithubCalender />
+      </div>
+    </div>
+  );
+};
 
 export default About;

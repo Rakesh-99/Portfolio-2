@@ -2,15 +2,77 @@
 @tailwind components;
 @tailwind utilities;
 
-
-h1, h2 {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 700;
-}
-p, li, span { 
-  font-family: 'Poppins', sans-serif;
-}
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+::selection {
+  background-color: #6C5CE7;
+  color: #ffffff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #6C5CE7;
+  border-radius: 999px;
+}
+
+/* Utility: gradient text */
+.text-gradient {
+  background: linear-gradient(120deg, #6C5CE7 0%, #8B7CF6 50%, #6C5CE7 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Utility: noise-free soft card border glow on hover */
+.card-glow {
+  position: relative;
+}
+.card-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(120deg, transparent, rgba(108, 92, 231, 0.55), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.card-glow:hover::before {
+  opacity: 1;
+}
+
+/* Focus ring */
+input:focus, textarea:focus, button:focus-visible, a:focus-visible {
+  outline: 2px solid #6C5CE7;
+  outline-offset: 2px;
 }

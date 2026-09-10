@@ -1,16 +1,17 @@
 import ProjectCard from '../components/ProjectCard';
-
+import SectionHeading from '../components/ui/SectionHeading';
 
 const Projects = () => {
+  return (
+    <div className="container">
+    <SectionHeading
+        eyebrow="Portfolio"
+        title="Projects that I have recently worked on"
+        subtitle="A few projects that show how I approach building products end-to-end — from data modeling to polished UI."
+      />
+      <ProjectCard />
+    </div>
+  );
+};
 
-
-    return (
-        <>
-            <div className="select-none text-center my-10">
-                <h1 className='text-center md:text-6xl lg:text-6xl  text-4xl font-bold'>See My Work</h1>
-            </div>
-            <ProjectCard />
-        </>
-    )
-}
 export default Projects;

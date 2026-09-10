@@ -8,7 +8,7 @@ const ScrollToTop = () => {
     const { pathname } = useLocation();
 
     useEffect(() => {
-        window.scrollTo(-10, -10);
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     }, [pathname])
 
 

@@ -1,74 +1,77 @@
-import { majorProjects } from '../data/data';
-import { useSelector } from 'react-redux';
+import { projects } from '../data/data';
 import { Link } from 'react-router-dom';
+import { motion } from 'motion/react';
+import { ArrowUpRight } from 'lucide-react';
+import { FaGithub } from 'react-icons/fa';
+import Reveal from './ui/Reveal';
+import ImageSlider from './ui/ImageSlider';
 
 const ProjectCard = () => {
+  return (
+    <div className="grid md:grid-cols-3 gap-6">
+      {projects.map((val, i) => (
+        <Reveal key={val._id} delay={i * 0.08} className="group h-full">
+          <motion.div
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="card-glow relative h-full flex flex-col rounded-2xl border border-ink/10 dark:border-paper/10 bg-paper/60 dark:bg-ink-soft/60 p-7 overflow-hidden"
+          >
+            {/* gradient corner accent */}
+            <div className="absolute -top-16 -right-16 h-40 w-40 rounded-full bg-accent/10 blur-2xl group-hover:bg-accent/20 transition-colors" />
 
+            {/* auto sliding thumbnail  */}
+            <ImageSlider images={val.projectImages} alt={val.projectTitle} className="relative mb-5" />
 
-    let { theme } = useSelector((state) => state.themeToggle)
+            <div className="relative flex items-start justify-between gap-4 mb-3">
+              <h3 className="text-xl md:text-2xl font-bold font-display">{val.projectTitle}</h3>
+              <ArrowUpRight
+                size={20}
+                className="shrink-0 text-ink/30 dark:text-paper/30 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
+              />
+            </div>
 
+            <p className="relative text-sm leading-relaxed text-ink/65 dark:text-paper/65 mb-6">
+              {val.projectDescription}
+            </p>
 
-    return (
-        <>
-            <div className="w-[80%] select-none m-auto">
-            
-                <div className="my-10 gap-5 grid md:grid-cols-3 lg:grid-cols-3 grid-cols-1">
-                    {
-                        majorProjects.map((val) => {
+            <div className="relative mt-auto flex flex-col gap-4">
+              <div className="flex flex-wrap gap-2">
+                {val.techIcons?.map((tech, idx) => (
+                  <span
+                    key={idx}
+                    className="flex items-center gap-1.5 text-xs font-mono px-2.5 py-1 rounded-full bg-ink/5 dark:bg-paper/10"
+                    title={tech.iconName}
+                  >
+                    <tech.icon size={13} style={{ color: tech.color || 'inherit' }} />
+                    {tech.iconName}
+                  </span>
+                ))}
+              </div>
 
+              <div className="flex items-center gap-3 pt-1">
+                {val.liveLink && (
+                  <Link
+                    target="_blank"
+                    to={val.liveLink}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-ink dark:bg-paper text-paper dark:text-ink text-xs font-semibold px-4 py-2 hover:-translate-y-0.5 transition-transform"
+                  >
+                    Live demo <ArrowUpRight size={13} />
+                  </Link>
+                )}
+                <Link
+                  target="_blank"
+                  to={val.source}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-ink/15 dark:border-paper/20 text-xs font-semibold px-4 py-2 hover:bg-ink/5 dark:hover:bg-paper/10 transition-colors"
+                >
+                  <FaGithub size={13} /> Source
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        </Reveal>
+      ))}
+    </div>
+  );
+};
 
-                            return (
-                                <div
-                                    className={`flex border-2 shadow-md hover:-translate-y-1 duration-200 transition-all px-4 py-2 flex-col justify-center items-center rounded-md ${theme === 'dark' ? 'border-zinc-700' : 'border-gray-200'}`} key={val._id}>
-
-                                    <img
-                                        className='rounded-md transition-all duration-1000  border-2' src={val.projectImages[0]} alt="projectImg" />
-
-                                    <h1
-                                        className='font-semibold text-2xl line-clamp-1 my-2 bg-clip-text bg-gradient-to-r from-green-600 via-cyan-700 to-indigo-500 inline-block text-transparent'>
-                                        {val.projectTitle}
-                                    </h1>
-                                    <p
-                                        className=' leading-7 mt-1 text-sm'>
-                                        {val.projectDescription}
-                                    </p>
-
-
-                                    {/* Tech used  */}
-                                    <p className={` text-sm my-2 font-mono  ${theme === 'dark' ? 'text-yellow-400' : 'text-blue-400'}`}>Tech used</p>
-
-
-                                    <div className="flex flex-wrap mb-5 justify-center  gap-2">
-                                        {
-                                            val.techIcons?.map((getIco, i) => {
-                                                const { icon: Icon, iconName } = getIco;
-                                                return (
-                                                    <div className={`flex border rounded-full px-1 py-1 shadow-2xl justify-centr items-center flex-col ${theme === 'dark' ? 'border-gray-700' : 'border-r-gray-400'}`} key={i}>
-                                                        <Icon color={getIco.color} size={25} />
-                                                    </div>
-                                                )
-
-                                            })
-                                        }
-                                    </div>
-
-                                    <div
-                                        className={`flex justify-between w-full`}>
-                                        {val.liveLink && 
-                                            <Link target='_blank' to={`${val.liveLink}`}
-                                            className={`border duration-300  text-sm font-mono  shadow-md hover:-translate-y-1 rounded-md py-2 px-2  ${theme === 'dark' ? 'border-gray-600 hover:bg-yellow-500' : ' border-blue-200 hover:bg-indigo-700 hover:text-white'}`}>See Live</Link>
-                                        }
-                                
-                                        <Link target='_blank' to={`${val.source}`}
-                                            className={`border duration-300 text-sm font-mono  shadow-md hover:-translate-y-1 rounded-md py-2 px-5  ${theme === 'dark' ? 'border-gray-600 hover:bg-yellow-500' : ' border-blue-200 hover:bg-indigo-700 hover:text-white'}`}>Source</Link>
-                                    </div>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            </div >
-        </>
-    )
-}
 export default ProjectCard;

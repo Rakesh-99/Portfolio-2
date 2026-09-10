@@ -1,57 +1,17 @@
-import mernImg1 from '../assets/mernBlogImages/image1.png';
-
-import portfolioImg1 from '../assets/portfolio2Images/image1.png'
-
-import JavaImg1 from '../assets/javaProject/javaProject.jpg'
-
-
-// Mini projects images 
-
-import petImg1 from '../assets/petImages/petImg1.png';
-import weatherImg from '../assets/weatherImg/weatherAppImg.png'
-
-import quoteImg1 from '../assets/quoteImg/quoteImg1.png';
-
-
-
-
-// Skill Icons
-import { FaCss3Alt, FaGitAlt } from "react-icons/fa6";
-import { RiTailwindCssLine, RiJavascriptFill } from "react-icons/ri";
+import { FaCss3Alt, FaGitAlt, FaTwitter } from "react-icons/fa6";
+import { RiTailwindCssLine, RiJavascriptFill, RiNextjsFill, RiTailwindCssFill } from "react-icons/ri";
 import { IoLogoReact } from "react-icons/io5";
-import { FaNode, FaJava } from "react-icons/fa";
-import { SiExpress, SiMongodb, SiFirebase } from "react-icons/si";
+import { FaNode, FaJava, FaAws,FaGit, FaLinkedin, FaGithub,FaReact, FaNodeJs   } from "react-icons/fa";
+import { SiExpress, SiMongodb, SiFirebase, SiPostgresql, SiDocker, SiTypescript, SiCplusplus } from "react-icons/si";
 import { TiHtml5 } from "react-icons/ti";
 import { BiLogoTypescript } from "react-icons/bi";
 import { TbBrandRedux } from "react-icons/tb";
-import { SiSanity } from "react-icons/si";
-import { RiNextjsFill } from "react-icons/ri";
-import { SiShadcnui } from "react-icons/si";
-import { SiEjs } from "react-icons/si";
-import { SiMysql } from "react-icons/si";
-import { FaAws } from "react-icons/fa";
-import { FaGit } from "react-icons/fa";
-
-
-// Tool Icons : 
+import { SiEjs,SiMysql,SiShadcnui,SiSanity, SiPostman, SiIntellijidea } from "react-icons/si";
 import { FcLinux } from "react-icons/fc";
 import { TbBrandVscode } from "react-icons/tb";
-import { SiPostman } from "react-icons/si";
 import { RxVercelLogo } from "react-icons/rx";
-import { SiIntellijidea } from "react-icons/si";
-
-
-//Footer Links : 
-import { FaLinkedin, FaInstagram, FaGithub } from "react-icons/fa";
-import { FaTwitter } from "react-icons/fa6";
-
-
-// Experience tools icons : 
-
-import { FaReact, FaNodeJs } from "react-icons/fa";
-import { RiTailwindCssFill } from "react-icons/ri";
+import {  } from "react-icons/ri";
 import { DiMongodb } from "react-icons/di";
-import { SiTypescript } from "react-icons/si";
 
 
 
@@ -155,7 +115,6 @@ export const vgInfotecExp = [
         color: "#007acce"
     }
 ]
-// React, TypeScript, Node.js, Express.js, MySQL, git and github 
 // Skills 
 export const skillInfo = [
     {
@@ -206,6 +165,14 @@ export const skillInfo = [
     {
         skillName : "MySQL",
         icon : SiMysql
+    },
+    {
+        skillName: 'PostgreSQL',
+        icon: SiPostgresql,
+    },
+    {
+        skillName: 'Docker',
+        icon: SiDocker,
     },
     {
         skillName: 'Node Js',
@@ -288,12 +255,56 @@ export const footerLinks = [
 ]
 
 
-export const majorProjects = [
+export const skillCategories = [
+    {
+        category: 'Languages',
+        skills: [
+            { skillName: 'C++', icon: SiCplusplus },
+            { skillName: 'JavaScript', icon: RiJavascriptFill },
+            { skillName: 'TypeScript', icon: BiLogoTypescript },
+            { skillName: 'Core Java', icon: FaJava },
+            { skillName: 'HTML5', icon: TiHtml5 },
+            { skillName: 'CSS3', icon: FaCss3Alt },
+        ],
+    },
+    {
+        category: 'Frontend',
+        skills: [
+            { skillName: 'React Js', icon: IoLogoReact },
+            { skillName: 'Next Js', icon: RiNextjsFill },
+            { skillName: 'Redux', icon: TbBrandRedux },
+            { skillName: 'Tailwind Css', icon: RiTailwindCssLine },
+            { skillName: 'Shadcn UI', icon: SiShadcnui },
+        ],
+    },
+    {
+        category: 'Backend & Database',
+        skills: [
+            { skillName: 'Node Js', icon: FaNode },
+            { skillName: 'Express Js', icon: SiExpress },
+            { skillName: 'MongoDB', icon: SiMongodb },
+            { skillName: 'MySQL', icon: SiMysql },
+            { skillName: 'PostgreSQL', icon: SiPostgresql },
+            { skillName: 'FireBase', icon: SiFirebase },
+            { skillName: 'Sanity CMS', icon: SiSanity },
+        ],
+    },
+    {
+        category: 'Cloud & DevOps',
+        skills: [
+            { skillName: 'Aws', icon: FaAws },
+            { skillName: 'Docker', icon: SiDocker },
+            { skillName: 'Git', icon: FaGitAlt },
+        ],
+    },
+];
+
+export const projects = [
     {
         _id: 121,
-        projectTitle: 'MERN Stack Blog App',
-        projectDescription: 'A fullstack blog app using MERN. It has features including an Admin panel, advanced authentication using JSON Web Token, sorting, searching, password hashing, theme preference, and much more.',
-        projectImages: [mernImg1],
+        projectTitle: 'Draftcode - Fullstack Blog App',
+        projectDescription: 'blog application built using the MERN stack (MongoDB, Express.js, React.js, Node.js). Redux-toolkit for state management and Tailwind CSS for styling. The app includes features such as user authentication and authorization, an admin panel, light/dark theme switching, and the ability to comment on blog posts, like comments, search and sort blogs, and paginate the blog list',
+        projectImages: [],
         techIcons: [
             {
                 iconName: 'React.Js',
@@ -337,91 +348,49 @@ export const majorProjects = [
    
     {
         _id: 123,
-        projectTitle: 'School Management System',
-        projectDescription: 'Developed a core Java-based school management system implementing object oriented principles. The system tracks students and teachers, including total earnings from students and total salary expenses for teachers.',
-        projectImages: [JavaImg1],
-        techIcons: [
+        projectTitle: 'Dineflow - A food ordering platform',
+        projectDescription: 'DineFlow is a restaurant management and food delivery platform . It manages From restaurant onboarding and menu management to order fulfillment and delivery tracking.The platform supports multiple user roles( User, Delivery Agent, Restaurant Owner ), location based restaurant discovery, online payments, and live order status updates.',
+        projectImages: [],
+         techIcons: [
             {
-                iconName: 'Java',
-                icon: FaJava,
-                color: 'orange'
+                iconName: 'React.Js',
+                icon: IoLogoReact,
+                color: '#61dbfb'
+            },
+            {
+                iconName: 'Tailwind',
+                icon: RiTailwindCssLine,
+                color: '#61dbfb'
+            },
+            {
+                iconName: 'Redux',
+                icon: TbBrandRedux,
+                color: '#764abc'
             },
 
+            {
+                iconName: 'Express.Js',
+                icon: SiExpress,
+            },
+            {
+                iconName: 'Firebase',
+                icon: SiFirebase,
+                color: '#F6820D'
+            },
+            {
+                iconName: 'MongoDB',
+                icon: SiMongodb,
+                color: '#4db33d'
+            },
+            {
+                iconName: 'Node.Js',
+                icon: FaNode,
+                color: '#68a063'
+            }
         ],
         // liveLink: 'https://rakesh99.vercel.app/',
-        source: 'https://github.com/Rakesh-99/School-management-system'
+        source: 'https://github.com/Rakesh-99/dineflow'
     },
 ];
 
-export const miniProjects = [
-    {
-        _id: 201,
-        projectTitle: 'Pet listing',
-        projectDescription: 'Developed a pet listing app that provides a comprehensive list of pets available. It includes features like pagination for easy navigation through the list of pets, filtration by animal type to help users find specific pets, and detailed information about each pet.',
-        projectImages: [petImg1],
-        techIcons: [
-            {
-                iconName: 'React.Js',
-                icon: IoLogoReact,
-                color: '#61dbfb'
-            },
-            {
-                iconName: 'Tailwind',
-                icon: RiTailwindCssLine,
-                color: '#61dbfb'
-            },
-            {
-                iconName: 'Redux',
-                icon: TbBrandRedux,
-                color: '#764abc'
-            },
-        ],
-        liveLink: 'https://pet-listing-assignment.vercel.app/',
-        source: 'https://github.com/Rakesh-99/pet-listing-assignment'
-    },
-    {
-        _id: 202,
-        projectTitle: 'Quote generater',
-        projectDescription: 'Developed a quote app using React and Redux Toolkit. The app generates a new quote each time a button is clicked, providing users with fresh and inspiring content.',
-        projectImages: [quoteImg1],
-        techIcons: [
-            {
-                iconName: 'React.Js',
-                icon: IoLogoReact,
-                color: '#61dbfb'
-            },
-            {
-                iconName: 'Tailwind',
-                icon: RiTailwindCssLine,
-                color: '#61dbfb'
-            },
-            {
-                iconName: 'Redux',
-                icon: TbBrandRedux,
-                color: '#764abc'
-            },
-        ],
-        liveLink: 'https://quote-generator-ten-rust.vercel.app/',
-        source: 'https://github.com/Rakesh-99/quote-generator'
-    },
-    {
-        _id: 203,
-        projectTitle: 'Weather App',
-        projectDescription: 'Developed a React-based weather app that provides detailed real-time weather information, including country, wind speed, humidity, pressure, temperature, weather conditions, and visibility. The app also features a dynamic weather image that changes based on the current weathe',
-        projectImages: [weatherImg],
-        techIcons: [
-            {
-                iconName: 'React.Js',
-                icon: IoLogoReact,
-                color: '#61dbfb'
-            },
-            {
-                iconName: 'Css3',
-                icon: FaCss3Alt,
-                color: 'blue'
-            },
-        ],
-        liveLink: 'https://weather-app-tau-dun.vercel.app/',
-        source: 'https://github.com/Rakesh-99/Weather-App-React'
-    },
-];
+

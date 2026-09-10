@@ -1,162 +1,153 @@
-import { useState, useEffect } from 'react'
-import { AiOutlineHome } from "react-icons/ai";
-import { FaRegUserCircle } from "react-icons/fa";
-import { TiContacts } from "react-icons/ti";
-import { AiTwotoneProject } from "react-icons/ai";
+import { useState, useEffect } from 'react';
 import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll';
-import { PiMoonStarsDuotone } from "react-icons/pi";
-import { HiMiniSun } from "react-icons/hi2";
-// import { useLocation } from 'react-router-dom';
-import { GiHamburgerMenu } from "react-icons/gi";
-import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from 'react-redux';
+import { motion, AnimatePresence } from 'motion/react';
+import { Sun, Moon, Menu, X } from 'lucide-react';
 import { changeTheme } from '../redux/slice/ThemeSlice';
-import { RiBloggerLine } from "react-icons/ri";
 
+const navItems = [
+  { navText: 'Home', to: 'home', isScroll: true },
+  { navText: 'About', to: 'about', isScroll: true },
+  { navText: 'Projects', to: 'projects', isScroll: true },
+  { navText: 'Blog', to: 'https://blog-draftcode.vercel.app/', isScroll: false },
+  { navText: 'Contact', to: 'contact', isScroll: true },
+];
 
 const NavBar = () => {
+  const dispatch = useDispatch();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { theme } = useSelector((state) => state.themeToggle);
 
-    const dispatch = useDispatch();
-    // const location = useLocation();
-    const [toggleThemeIcon, setToggleIcon] = useState(false);
-    const [hamBurger, setHamBurger] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
-    const { theme } = useSelector((state) => state.themeToggle)
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+  }, [menuOpen]);
 
+  return (
+    <nav
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        scrolled
+          ? 'backdrop-blur-xl bg-paper/70 dark:bg-ink/70 border-b border-ink/10 dark:border-paper/10'
+          : 'bg-transparent border-b border-transparent'
+      }`}
+    >
+      <div className="container flex items-center justify-between h-18 py-4">
+        <span
+          onClick={() => scroll.scrollToTop()}
+          className="font-display font-bold text-lg cursor-pointer tracking-tight"
+        >
+          Rakesh<span className="text-accent">.</span>
+        </span>
 
+        {/* Desktop nav */}
+        <div className="hidden md:flex items-center gap-8">
+          {navItems.map((item, i) =>
+            item.isScroll ? (
+              <ScrollLink
+                key={i}
+                to={item.to}
+                smooth
+                duration={500}
+                offset={-80}
+                spy
+                className="relative text-sm font-medium cursor-pointer text-ink/70 dark:text-paper/70 hover:text-ink dark:hover:text-paper transition-colors"
+                activeClass="!text-accent"
+              >
+                {item.navText}
+              </ScrollLink>
+            ) : (
+              <a
+                key={i}
+                href={item.to}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-ink/70 dark:text-paper/70 hover:text-ink dark:hover:text-paper transition-colors"
+              >
+                {item.navText}
+              </a>
+            )
+          )}
+        </div>
 
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => dispatch(changeTheme())}
+            aria-label="Toggle theme"
+            className="relative h-9 w-9 grid place-items-center rounded-full border border-ink/10 dark:border-paper/15 hover:bg-ink/5 dark:hover:bg-paper/10 transition-colors"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={theme}
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                className="grid place-items-center"
+              >
+                {theme === 'dark' ? <Moon size={16} /> : <Sun size={16} />}
+              </motion.span>
+            </AnimatePresence>
+          </button>
 
+          <button
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Toggle menu"
+            className="md:hidden h-9 w-9 grid place-items-center rounded-full border border-ink/10 dark:border-paper/15"
+          >
+            {menuOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </div>
+      </div>
 
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setScrolled(true);
-            } else {
-                setScrolled(false);
-            }
-        };
+      {/* Mobile nav */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="md:hidden overflow-hidden border-t border-ink/10 dark:border-paper/10 bg-paper/95 dark:bg-ink/95 backdrop-blur-xl"
+          >
+            <div className="flex flex-col px-6 py-6 gap-5">
+              {navItems.map((item, i) =>
+                item.isScroll ? (
+                  <ScrollLink
+                    key={i}
+                    to={item.to}
+                    smooth
+                    duration={500}
+                    offset={-80}
+                    onClick={() => setMenuOpen(false)}
+                    className="text-base font-medium cursor-pointer"
+                  >
+                    {item.navText}
+                  </ScrollLink>
+                ) : (
+                  <a
+                    key={i}
+                    href={item.to}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-base font-medium"
+                  >
+                    {item.navText}
+                  </a>
+                )
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
+  );
+};
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-    const navItems = [
-        {
-            navText: 'Home',
-            to: 'home',
-            icon: AiOutlineHome,
-            isScroll: true
-        },
-        {
-            navText: 'About',
-            to: 'about',
-            icon: FaRegUserCircle,
-            isScroll: true
-        },
-        {
-            navText: 'Projects',
-            to: 'projects',
-            icon: AiTwotoneProject,
-            isScroll: true
-        },
-        // {
-        //     navText: 'Resume',
-        //     to: 'resume',
-        //     icon: FaRegFileCode,
-        //     isScroll: true
-        // },
-        {
-            navText: 'Blog',
-            to: 'https://blog-draftcode.vercel.app/',
-            icon: RiBloggerLine,
-            isScroll: false
-        },
-        {
-            navText: 'Contact',
-            to: 'contact',
-            icon: TiContacts,
-            isScroll: true
-        },
-    ];
-
-    const toggleThemeBtn = () => {
-        setToggleIcon(!toggleThemeIcon);
-        dispatch(changeTheme());
-    }
-
-    const handleHamToggle = () => {
-        setHamBurger(!hamBurger);
-    }
-
-
-    return (
-        <>
-            <nav
-                className={`w-full z-50 shadow-2xl border-b md:border-none lg:border-none sticky top-0 left-0 items-center md:h-20 lg:h-20 overflow-hidden    flex-col pl-5 md:pl-0 lg:flex-row md:flex-row  py-4  md:flex lg:flex  transition-all duration-300 justify-evenly ${hamBurger === true ? 'h-80' : 'h-16'} ${theme === 'light' ? 'bg-[#ffffff] md:shadow-none lg:shadow-none shadow-blue-100 text-gray-800 ' : 'bg-zinc-800 border-zinc-700  text-gray-200 transition-al md:shadow-none'} ${scrolled ? 'backdrop-blur-md' : ''} ${scrolled && theme === 'light' ? 'bg-white/20' : scrolled && theme === 'dark' ? 'bg-black/20' : ''}`}>
-
-
-
-                <div className=" flex items-center md:gap-10 lg:gap-10 gap-0 justify-between">
-                    <span onClick={() => scroll.scrollToTop()} className={`font-bold cursor-pointer`}>Rakesh Parida</span>
-
-                    {/* hamburger icon  */}
-                    <button onClick={() => toggleThemeBtn()} className='rounded-full px-1 py-1 transition-all duration-150'>
-                        {
-                            toggleThemeIcon === true
-                                ?
-                                <PiMoonStarsDuotone size={23} className='active:animate-spin' />
-                                :
-                                <HiMiniSun size={23} className='active:animate-spin' />
-                        }
-                    </button>
-
-                    {/* Hamburger  */}
-                    <button className='md:hidden lg:hidden active:bg-violet-500 rounded-full px-1 py-1 duration-1000 transition-all float-right mr-5' onClick={() => handleHamToggle()}>
-                        {
-                            hamBurger ? <RxCross2 size={23} className='active:animate-spin transition-all duration-1000' /> : <GiHamburgerMenu size={23} className='active:animate-spin transition-all duration-1000' />
-                        }
-                    </button>
-
-                </div>
-
-                {
-                    navItems.map((values, i) => {
-                        const { navText, to, icon: Icon, isScroll } = values;
-                        return (
-                            <div
-                                className={`z-20 md:flex lg:flex justify-start flex relative top-5 md:static lg:static my-5 lg:my-0 md:my-0  transition-all duration-100 gap-1 items-center`}
-                                key={i}>
-                                <span><Icon size={15} className={`${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`} /></span>
-                                {isScroll ? (
-                                    <ScrollLink
-                                        to={to}
-                                        smooth={true}
-                                        duration={500}
-                                        offset={-70}
-                                        onClick={handleHamToggle}
-                                        className='text-sm active:scale-95 transition-all font-semibold cursor-pointer'
-                                        spy={true}
-                                        activeClass="md:border-b lg:border-b bg-clip-text bg-gradient-to-r from-white via-yellow-500 to-white inline text-transparent"
-                                    >
-                                        {navText}
-                                    </ScrollLink>
-                                ) : (
-                                    <a
-                                        href={to}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className='text-sm active:scale-95 transition-all font-semibold cursor-pointer'
-                                    >
-                                        {navText}
-                                    </a>
-                                )}
-                            </div>
-                        )
-                    })
-                }
-            </nav >
-        </>
-    )
-}
-
-export default NavBar
+export default NavBar;

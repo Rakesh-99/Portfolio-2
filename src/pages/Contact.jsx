@@ -1,200 +1,185 @@
-import { useState, useRef } from 'react'
-import contactImg from '../assets/phoneCall .png'
-import { BiPhoneCall } from 'react-icons/bi'
-import { useSelector } from 'react-redux'
-import toast from 'react-hot-toast'
-import emailjs from '@emailjs/browser'
-import { Loader, Send } from 'lucide-react'
+import { useState, useRef } from 'react';
+import toast from 'react-hot-toast';
+import emailjs from '@emailjs/browser';
+import { motion } from 'motion/react';
+import { Loader2, Send, Mail } from 'lucide-react';
+import { footerLinks } from '../data/data';
+import SectionHeading from '../components/ui/SectionHeading';
+import Reveal from '../components/ui/Reveal';
 
 const Contact = () => {
-  const form = useRef(null)
-  const [formData, setFormData] = useState({
-    user_name: '',
-    user_email: '',
-    message: '',
-  })
-  const [isSending, setIsSending] = useState(false)
+  const form = useRef(null);
+  const [formData, setFormData] = useState({ user_name: '', user_email: '', message: '' });
+  const [isSending, setIsSending] = useState(false);
 
   const inputChangeHandle = (e) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-  const isValidEmail = (email) =>
-    /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.trim())
+  const isValidEmail = (email) => /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email.trim());
 
   const validationRules = [
-    {
-      validate: (values) => !values.user_name.trim(),
-      message:  'All fileds are required.',
-    },
-    {
-      validate: (values) => values.user_name.trim().length < 2,
-      message: 'Name must be at least 2 characters.',
-    },
-    {
-      validate: (values) => values.user_name.trim().length > 20,
-      message: 'Name cannot exceed 20 characters.',
-    },
-    {
-      validate: (values) => !values.user_email.trim(),
-      message: ' ALl fileds are required.',
-    },
-    {
-      validate: (values) => !isValidEmail(values.user_email),
-      message: 'Please enter a valid email address.',
-    },
-    {
-      validate: (values) => !values.message.trim(),
-      message: 'All fields are required.',
-    },
-    {
-      validate: (values) => values.message.trim().length < 20,
-      message: 'Message must be at least 20 characters.',
-    },
-    {
-      validate: (values) => values.message.trim().length > 300,
-      message: 'Message cannot exceed 300 characters.',
-    },
-  ]
+    { validate: (v) => !v.user_name.trim(), message: 'All fields are required.' },
+    { validate: (v) => v.user_name.trim().length < 2, message: 'Name must be at least 2 characters.' },
+    { validate: (v) => v.user_name.trim().length > 20, message: 'Name cannot exceed 20 characters.' },
+    { validate: (v) => !v.user_email.trim(), message: 'All fields are required.' },
+    { validate: (v) => !isValidEmail(v.user_email), message: 'Please enter a valid email address.' },
+    { validate: (v) => !v.message.trim(), message: 'All fields are required.' },
+    { validate: (v) => v.message.trim().length < 20, message: 'Message must be at least 20 characters.' },
+    { validate: (v) => v.message.trim().length > 300, message: 'Message cannot exceed 300 characters.' },
+  ];
 
-  const getValidationError = (values) => {
-    const failedRule = validationRules.find((rule) => rule.validate(values))
-    return failedRule?.message || ''
-  }
+  const getValidationError = (values) => validationRules.find((r) => r.validate(values))?.message || '';
 
   const formSubmitHandle = (e) => {
-    e.preventDefault()
-
-    const error = getValidationError(formData)
+    e.preventDefault();
+    const error = getValidationError(formData);
     if (error) {
-      toast.error(error)
-      return
+      toast.error(error);
+      return;
     }
-
     if (!form.current) {
-      toast.error('Unable to submit the form right now.')
-      return
+      toast.error('Unable to submit the form right now.');
+      return;
     }
 
-    setIsSending(true)
-
-   emailjs.sendForm(
+    setIsSending(true);
+    emailjs
+      .sendForm(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         form.current,
-  { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
-)
+        { publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY }
+      )
       .then(
         () => {
-          toast.success('Your message has been sent.')
-          setFormData({ user_name: '', user_email: '', message: '' })
+          toast.success('Your message has been sent.');
+          setFormData({ user_name: '', user_email: '', message: '' });
         },
         (error) => {
-          console.error('FAILED...', error)
-          toast.error('An unexpected error occurred. Please try again.')
-        },
+          console.error('FAILED...', error);
+          toast.error('An unexpected error occurred. Please try again.');
+        }
       )
-      .finally(() => setIsSending(false))
-  }
+      .finally(() => setIsSending(false));
+  };
 
-  const { theme } = useSelector((state) => state.themeToggle)
+  const inputClass =
+    'peer w-full rounded-xl border border-ink/15 dark:border-paper/15 bg-transparent px-4 py-3 text-sm outline-none transition-colors focus:border-accent placeholder:text-ink/30 dark:placeholder:text-paper/30';
 
   return (
-    <div className="min-h-screen lg:flex-row md:flex-row flex-col items-center justify-center md:w-[80%] m-auto flex gap-5">
-      <div className="w-full">
-        <img src={contactImg} className="" alt="contactImg" />
+    <div className="container">
+      <SectionHeading
+        eyebrow="Get in touch"
+        title="Let's build something together"
+        subtitle="Have a project in mind, a role to discuss, or just want to say hi? My inbox is open."
+      />
+
+      <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 max-w-5xl mx-auto">
+        {/* Left: info panel */}
+        <Reveal direction="right" className="flex flex-col gap-6">
+          <div className="rounded-2xl border border-ink/10 dark:border-paper/10 bg-paper/60 dark:bg-ink-soft/60 p-6 flex flex-col gap-6">
+            <div className="flex items-center gap-3">
+              <span className="h-10 w-10 rounded-full bg-accent/10 text-accent grid place-items-center">
+                <Mail size={18} />
+              </span>
+              <div>
+                <p className="text-xs text-ink/50 dark:text-paper/50">Email</p>
+                <p className="text-sm font-medium">rakeshkumarparida424@gmail.com</p>
+              </div>
+            </div>
+
+            <div className="h-px bg-ink/10 dark:bg-paper/10" />
+
+            <div>
+              <p className="text-xs font-mono uppercase tracking-[0.2em] text-accent mb-3">Find me on</p>
+              <div className="flex items-center gap-3">
+                {footerLinks.map((val, i) => {
+                  const Icon = val.icon;
+                  return (
+                    <motion.a
+                      whileHover={{ y: -3 }}
+                      key={i}
+                      href={val.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="h-10 w-10 grid place-items-center rounded-full border border-ink/10 dark:border-paper/15 hover:text-accent hover:border-accent/50 transition-colors"
+                    >
+                      <Icon size={16} />
+                    </motion.a>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Right: form */}
+        <Reveal direction="left">
+          <form ref={form} onSubmit={formSubmitHandle} className="flex flex-col gap-5">
+            <div className="grid sm:grid-cols-2 gap-5">
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium text-ink/60 dark:text-paper/60">Name</label>
+                <input
+                  autoComplete="off"
+                  name="user_name"
+                  value={formData.user_name}
+                  onChange={inputChangeHandle}
+                  type="text"
+                  placeholder="John Smith"
+                  className={inputClass}
+                />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-xs font-medium text-ink/60 dark:text-paper/60">Email</label>
+                <input
+                  autoComplete="off"
+                  name="user_email"
+                  value={formData.user_email}
+                  onChange={inputChangeHandle}
+                  type="email"
+                  placeholder="smith@gmail.com"
+                  className={inputClass}
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-medium text-ink/60 dark:text-paper/60">Message</label>
+              <textarea
+                autoComplete="off"
+                name="message"
+                rows={5}
+                value={formData.message}
+                onChange={inputChangeHandle}
+                placeholder="Tell me a bit about your project or opportunity..."
+                className={`${inputClass} resize-none`}
+              />
+            </div>
+
+            <motion.button
+              whileHover={{ y: -2 }}
+              whileTap={{ scale: 0.97 }}
+              type="submit"
+              disabled={isSending}
+              className="self-start inline-flex items-center gap-2 rounded-full bg-ink dark:bg-paper text-paper dark:text-ink text-sm font-semibold px-7 py-3 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {isSending ? (
+                <>
+                  <Loader2 size={16} className="animate-spin" /> Sending...
+                </>
+              ) : (
+                <>
+                  <Send size={15} /> Send message
+                </>
+              )}
+            </motion.button>
+          </form>
+        </Reveal>
       </div>
-
-      <form
-        ref={form}
-        onSubmit={formSubmitHandle}
-        className={`flex flex-col gap-5`}
-      >
-        <div className="flex items-center justify-center w-full gap-2">
-          <BiPhoneCall size={26}  />
-          <h1 className="text-2xl font-semibold ">
-            Contact
-          </h1>
-        </div>
-
-        <div className="flex flex-col w-full">
-          <label className="text-sm font-semibold">Name *</label>
-          <input
-            autoComplete="off"
-            name="user_name"
-            value={formData.user_name}
-            onChange={inputChangeHandle}
-            type="text"
-            placeholder="John Smith"
-            className={`py-2 border-orange-500 transition-all duration-500 px-3 rounded-md w-72 lg:w-96 md:w-96 outline-none ${
-              theme === 'dark'
-                ? 'bg-zinc-700 text-white focus:bg-gray-800'
-                : 'bg-gray-200 focus:bg-gray-300 text-gray-800 '
-            }`}
-          />
-        </div>
-
-        <div className="flex flex-col w-full">
-          <label className="text-sm font-semibold">Email *</label>
-          <input
-            autoComplete="off"
-            name="user_email"
-            value={formData.user_email}
-            onChange={inputChangeHandle}
-            type="email"
-            placeholder="smith@gmail.com"
-            className={`py-2 transition-all duration-500 px-3 rounded-md w-72 lg:w-96 md:w-96 outline-none ${
-              theme === 'dark'
-                ? 'bg-zinc-700 text-white focus:bg-gray-800'
-                : 'bg-gray-200 focus:bg-gray-300 text-gray-800 '
-            }`}
-          />
-        </div>
-
-        <div className="flex flex-col w-full">
-          <label className="text-sm font-semibold">Message *</label>
-          <textarea
-            autoComplete="off"
-            name="message"
-            value={formData.message}
-            onChange={inputChangeHandle}
-            placeholder="Your message.."
-            className={`py-2 px-3 transition-all duration-500 rounded-md w-72 lg:w-96 md:w-96 outline-none ${
-              theme === 'dark'
-                ? 'bg-zinc-700 text-white focus:bg-gray-800'
-                : 'bg-gray-200 focus:bg-gray-300 text-gray-800 '
-            }`}
-          />
-        </div>
-
-        <button
-          type="submit"
-          disabled={isSending}
-          className="bg-gradient-to-r hover:shadow-orange-600 shadow-2xl transition-all duration-500 from-red-500 to-orange-500 py-2 text-gray-300 text-sm font-semibold px-10 rounded-sm active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isSending ? 
-          
-          <div className="flex gap-3 items-center justify-center">
-          <Loader size={20} className='animate-spin'/>
-          <span>Sending ..</span>
-          </div>
-         
-          : 
-          
-          <div className="flex items-center justify-center gap-3">
-            <Send size={16} className=''/>
-
-            <span>Send Message</span>
-          </div>
-          }
-        </button>
-      </form>
     </div>
-  )
-}
+  );
+};
 
-export default Contact
+export default Contact;

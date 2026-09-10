@@ -1,17 +1,17 @@
-import NavBar from './NavBar'
-import Footer from './Footer'
-import { Outlet } from 'react-router-dom'
-
+import NavBar from './NavBar';
+import Footer from './Footer';
+import { Outlet } from 'react-router-dom';
 
 const Layout = () => {
-    return (
-        <>
+  return (
+    <>
+      <NavBar />
+      <main className='max-w-7xl m-auto'>
+        <Outlet />
+      </main>
+      <Footer />
+    </>
+  );
+};
 
-            <NavBar />
-            <Outlet />
-            <Footer />
-        </>
-    )
-}
-
-export default Layout
+export default Layout;

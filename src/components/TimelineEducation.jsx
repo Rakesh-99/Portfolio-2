@@ -1,95 +1,47 @@
-import Timeline from '@mui/lab/Timeline';
-import TimelineItem from '@mui/lab/TimelineItem';
-import TimelineSeparator from '@mui/lab/TimelineSeparator';
-import TimelineConnector from '@mui/lab/TimelineConnector';
-import TimelineContent from '@mui/lab/TimelineContent';
-import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
-import TimelineDot from '@mui/lab/TimelineDot';
-import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
-import SchoolTwoToneIcon from '@mui/icons-material/SchoolTwoTone';
-import Typography from '@mui/material/Typography';
-import { useTheme, useMediaQuery } from "@mui/material";
+import { GraduationCap } from 'lucide-react';
+import Reveal from './ui/Reveal';
+
+const education = [
+  {
+    year: '2021 — 2024',
+    degree: 'B.TECH - Computer Science & Engineering',
+    institution: 'Biju Patnaik University of Technology ( Nalanda Institute Of Technology, Bhubaneswar ) ',
+    secured : "CGPA 7.28/10 "
+  },
+  {
+    year: '2018 — 2021',
+    degree: 'Diploma - Information Technology',
+    institution: 'State Council for Technical Education & Vocational Training (Govt. Polytechnic,Bhubaneswar)',
+    secured : "67.48%"
+  },
+];
 
 const TimelineEducation = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
-  const education = [
-    {
-      year: "2021 - 2024",
-      degree: "Computer Science and Engineering",
-      institution: "Nalanda Institute of Technology Bhubaneswar, Odisha",
-      icon: SchoolOutlinedIcon,
-      color: "green.500"
-    },
-    {
-      year: "2018 - 2021",
-      degree: "Diploma in Information Technology",
-      institution: "Government Polytechnic Bhubaneswar, Odisha",
-      icon: SchoolTwoToneIcon,
-      color: "primary"
-    }
-  ];
-
   return (
-    <Timeline 
-      position="right"
-      sx={{
-        padding: isMobile ? '0' : 'initial',
-        margin: isMobile ? '0' : 'initial',
-        width: isMobile ? '100%' : 'initial',
-      }}
-    >
-      {education.map((edu, index) => {
-        const IconComponent = edu.icon;
-        return (
-          <TimelineItem 
-            key={index}
-            position="right"
-            sx={{
-              minHeight: 'initial',
-              paddingTop: isMobile ? '8px' : 'initial',
-              paddingBottom: isMobile ? '8px' : 'initial',
-            }}
-          >
-            <TimelineSeparator>
-              <TimelineConnector />
-              <TimelineDot sx={{ backgroundColor: "gray" }}>
-                <IconComponent sx={{ fontSize: isMobile ? 18 : 24 }} />
-              </TimelineDot>
-              <TimelineConnector />
-            </TimelineSeparator>
-            
-            <TimelineContent sx={{ 
-              py: { xs: 1.5, sm: 3 }, 
-              px: { xs: 0.5, sm: 2 },
-              flex: '1 1 100%',
-              width: '100%',
-            }}>
-              <div className="flex justify-between items-start gap-1 md:gap-2 mb-1 md:mb-2">
-                <Typography 
-                  variant={isMobile ? "body1" : "h6"} 
-                  component="span"
-                  sx={{ fontSize: { xs: "0.95rem", sm: "1.1rem", md: "1.25rem" } }}
-                  className="font-semibold"
-                >
-                  {edu.degree}
-                </Typography>
-                <span className='text-gray-400 text-[11px] sm:text-xs whitespace-nowrap text-right md:text-sm'>
-                  {edu.year}
+    <div className="relative">
+      <div className="absolute left-[15px] md:left-[19px] top-2 bottom-2 w-px bg-gradient-to-b from-accent via-ink/10 dark:via-paper/10 to-transparent" />
+
+      <div className="flex flex-col gap-6">
+        {education.map((edu, index) => (
+          <Reveal key={index} delay={index * 0.1} className="relative pl-12 md:pl-16">
+            <span className="absolute left-0 top-1 h-8 w-8 md:h-10 md:w-10 rounded-full bg-paper dark:bg-ink border-2 border-accent grid place-items-center text-accent">
+              <GraduationCap size={16} />
+            </span>
+
+            <div className="rounded-2xl border border-ink/10 dark:border-paper/10 bg-paper/60 dark:bg-ink-soft/60 p-6 hover:border-accent/40 transition-colors">
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <h3 className="text-base md:text-lg font-bold font-display">{edu.degree}</h3>
+                <span className="text-xs md:text-sm font-mono flex flex-col gap-1 text-ink/50 dark:text-paper/50 whitespace-nowrap">
+                  <span>{edu.year}</span>
+                  <span>{edu.secured}</span>
                 </span>
               </div>
-              <Typography 
-                sx={{ fontSize: { xs: "0.8rem", sm: "0.9rem", md: "1rem" } }}
-                className="text-gray-400"
-              >
-                {edu.institution}
-              </Typography>
-            </TimelineContent>
-          </TimelineItem>
-        );
-      })}
-    </Timeline>
+              <p className="text-sm text-ink/60 dark:text-paper/60 mt-1">{edu.institution}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </div>
   );
 };
 

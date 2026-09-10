@@ -1,36 +1,46 @@
-import React from 'react'
 import { footerLinks } from '../data/data';
 import { Link } from 'react-router-dom';
-
-
+import { motion } from 'motion/react';
 
 const Footer = () => {
+  return (
+    <footer className="border-t border-ink/10 dark:border-paper/10 mt-24">
+      <div className="container py-10 flex flex-col md:flex-row items-center justify-between gap-6">
+        <p className="text-sm text-ink/60 dark:text-paper/60 text-center md:text-left">
+          Designed &amp; built by{' '}
+          <Link
+            to="https://github.com/Rakesh-99"
+            target="_blank"
+            className="font-medium text-ink dark:text-paper hover:text-accent transition-colors"
+          >
+            Rakesh Kumar Parida
+          </Link>
+        </p>
 
+        <div className="flex items-center gap-3">
+          {footerLinks.map((val, i) => {
+            const { link, icon: Icon } = val;
+            return (
+              <motion.a
+                whileHover={{ y: -3 }}
+                key={i}
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-9 w-9 grid place-items-center rounded-full border border-ink/10 dark:border-paper/15 text-ink/70 dark:text-paper/70 hover:text-accent hover:border-accent/50 transition-colors"
+              >
+                <Icon size={16} />
+              </motion.a>
+            );
+          })}
+        </div>
 
+        <p className="text-xs text-ink/40 dark:text-paper/40 font-mono">
+          &copy; {new Date().getFullYear()} All rights reserved.
+        </p>
+      </div>
+    </footer>
+  );
+};
 
-
-    return (
-        <>
-            <div className="h-32  py-5  flex items-center flex-col md:flex-row lg:flex-row  justify-around  shadow-2xl">
-                <p
-                    className='text-sm'>Designed and Developed by
-                    <Link to={'https://github.com/Rakesh-99'} className='font-medium hover:text-blue-400'> Rakesh Kumar Parida</Link>
-                </p>
-                <div className="flex md:gap-20 lg:gap-20 gap-5">
-                    {
-                        footerLinks.map((val, i) => {
-                            const { link, icon: Icon } = val;
-                            return (
-                                <div className="flex rounded-full items-center hover:scale-90 hover:shadow-2xl hover:shadow-green-500 py-4 px-4 transition-all" key={i}>
-                                    <Link target='_blank' className='' to={`${link}`}><Icon size={30} /></Link>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            </div>
-        </>
-    )
-}
-
-export default Footer
+export default Footer;
