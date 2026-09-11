@@ -23,6 +23,14 @@ import createBlogAdmin from '../assets/admin panel/create-blog.png';
 import userCommentsAdmin from '../assets/admin panel/user-comments-admin.png'
 import userListAdmin from '../assets/admin panel/user-list-admin.png'
 import filterblog from '../assets/blog list/filter-blog.png'
+import userHomePage from '../assets/DineFLow/user/userHomepage.png';
+import adminResDetails from '../assets/DineFLow/admin/adminResDetails.png';
+import createMenuAdmin from '../assets/DineFLow/admin/createMenuAdmin.png';
+import createRestaurantAdmin from '../assets/DineFLow/admin/createResstaurantAdmin.png';
+import restaurantListAdmin from '../assets/DineFLow/admin/restaurantListAdmin.png';
+import updateRestaurantAdmin from '../assets/DineFLow/admin/updateRestaurantAdmin.png';
+
+
 // Experience 
 
 export const internshipTechUsed = [
@@ -355,7 +363,7 @@ export const projects = [
         _id: 123,
         projectTitle: 'Dineflow - A food ordering platform',
         projectDescription: 'DineFlow is a restaurant management and food delivery platform . It manages From restaurant onboarding and menu management to order fulfillment and delivery tracking.The platform supports multiple user roles( User, Delivery Agent, Restaurant Owner ), location based restaurant discovery, online payments, and live order status updates.',
-        projectImages: [],
+        projectImages: [ userHomePage, restaurantListAdmin, adminResDetails, createRestaurantAdmin, createMenuAdmin, updateRestaurantAdmin],
          techIcons: [
             {
                 iconName: 'React.Js',
