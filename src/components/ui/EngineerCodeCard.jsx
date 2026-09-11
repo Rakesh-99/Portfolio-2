@@ -25,7 +25,7 @@ const EngineerCodeCard = ({ className = '' }) => {
           <p>
             <span className="text-white/30">01</span>{'  '}
             <span className="text-[#c792ea]">const</span>{' '}
-            <span className="text-white/80">engineer</span>{' '}
+            <span className="text-white/80">data</span>{' '}
             <span className="text-white/50">=</span> <span className="text-white/50">{'{'}</span>
           </p>
           <p>
@@ -51,9 +51,16 @@ const EngineerCodeCard = ({ className = '' }) => {
             <span className="text-white/50">[</span>
             <span className="text-[#89ddff]">"Node.js"</span>
             <span className="text-white/50">, </span>
-            <span className="text-[#89ddff]">"Express"</span>
+            <span className="text-[#89ddff]">"Nest.js"</span>
             <span className="text-white/50">, </span>
+            <span className="text-[#89ddff]">"Express"</span>
+    <span className="text-white/50">, </span>
             <span className="text-[#89ddff]">"PostgreSQL"</span>
+
+            <span className="text-white/50">, </span>
+            <span className="text-[#89ddff]">"REST APIs"</span>
+
+
             <span className="text-white/50">],</span>
           </p>
           <p>
@@ -62,8 +69,7 @@ const EngineerCodeCard = ({ className = '' }) => {
             <span className="text-white/50">[</span>
             <span className="text-[#89ddff]">"AWS"</span>
             <span className="text-white/50">, </span>
-            <span className="text-[#89ddff]">"CI/CD"</span>
-            <span className="text-white/50">],</span>
+
           </p>
           <p>
             <span className="text-white/30">06</span>{'  '}

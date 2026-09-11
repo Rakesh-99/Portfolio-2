@@ -14,7 +14,7 @@ const ThemeProvider = ({ children }) => {
   }, [theme]);
 
   return (
-    <div className="min-h-screen bg-paper dark:bg-ink text-ink dark:text-paper transition-colors duration-500 selection:bg-accent selection:text-white">
+    <div className="min-h-screen bg-paper dark:bg-[#1d1d1f] text-ink dark:text-paper transition-colors duration-500 selection:bg-accent selection:text-white">
       {children}
     </div>
   );

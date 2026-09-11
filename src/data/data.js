@@ -12,12 +12,17 @@ import { TbBrandVscode } from "react-icons/tb";
 import { RxVercelLogo } from "react-icons/rx";
 import {  } from "react-icons/ri";
 import { DiMongodb } from "react-icons/di";
-
-
-
-
-
-
+import homePage from '../assets/home/Screenshot From 2026-09-11 10-56-08.png'
+import blogList1 from '../assets/blog list/filter-blog.png'
+import blogList2 from '../assets/blog list/Screenshot From 2026-09-11 10-56-41.png'
+import blogList3 from '../assets/blog list/Screenshot From 2026-09-11 10-56-56.png'
+import blogDetails1 from '../assets/blog details/Screenshot From 2026-09-11 10-58-31.png';
+import blogDetails2 from '../assets/blog details/Screenshot From 2026-09-11 10-58-47.png';
+import blogListadmin from '../assets/admin panel/blog-list-admin.png';
+import createBlogAdmin from '../assets/admin panel/create-blog.png';
+import userCommentsAdmin from '../assets/admin panel/user-comments-admin.png'
+import userListAdmin from '../assets/admin panel/user-list-admin.png'
+import filterblog from '../assets/blog list/filter-blog.png'
 // Experience 
 
 export const internshipTechUsed = [
@@ -304,7 +309,7 @@ export const projects = [
         _id: 121,
         projectTitle: 'Draftcode - Fullstack Blog App',
         projectDescription: 'blog application built using the MERN stack (MongoDB, Express.js, React.js, Node.js). Redux-toolkit for state management and Tailwind CSS for styling. The app includes features such as user authentication and authorization, an admin panel, light/dark theme switching, and the ability to comment on blog posts, like comments, search and sort blogs, and paginate the blog list',
-        projectImages: [],
+        projectImages: [homePage, blogList2, blogList3, blogList1, blogDetails1, blogDetails2, blogListadmin, createBlogAdmin, userCommentsAdmin, userListAdmin, filterblog],
         techIcons: [
             {
                 iconName: 'React.Js',

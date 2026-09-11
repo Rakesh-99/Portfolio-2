@@ -30,7 +30,7 @@ const ProjectCard = () => {
               />
             </div>
 
-            <p className="relative text-sm leading-relaxed text-ink/65 dark:text-paper/65 mb-6">
+            <p className="relative text-xs leading-relaxed text-ink/65 dark:text-paper/65 mb-6">
               {val.projectDescription}
             </p>
 
